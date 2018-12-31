@@ -220,7 +220,7 @@ public class GameSurfaceView extends SurfaceView implements Callback,Runnable {
         int ix,iy,iz,irz;
         String tag = "GenericMotionEvent";
 
-        Log.i("DEVICE",String.format("device:%d,source:%d,device id:%d",event.getDevice(),event.getSource(),event.getDeviceId()));
+        Log.i(TAG,String.format("source:0x%x,device id:%d,descriptor:%s",event.getSource(),event.getDeviceId(),event.getDevice().getDescriptor()));
 
         //左右摇杆
         if(KeycodeMap.getMode() == KeycodeMap.MODE_BETOP) {
