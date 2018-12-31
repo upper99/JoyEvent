@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game 
+    name_Ch="绝地求生" 
+    name_En="mangod"
+    package="com.tencent.tmgp.pubgmhd"
+    version="v1.0">
+
+<!-- BUTTON_RT键对应（右）射击/出拳 -->
+<button name="BUTTON_RT" action="click" type="single" description="出拳or射击">
+<point x="1613" y="813"></point>
+</button>
+
+<!-- BUTTON_LT键对应（左）射击/出拳 -->
+<button name="BUTTON_RT" action="click" type="single" description="出拳or射击">
+<point x="135" y="555"></point>
+</button>
+
+<!-- BUTTON_B键对应跳跃 -->
+<button name="BUTTON_B" action="click" type="single" description="跳跃">
+<point x="1838" y="760"></point>
+</button>
+
+<!-- BUTTON_X键对应姿势切换：蹲下or -->
+<button name="BUTTON_X" action="click" type="multi" points="2">
+<point id="0" x="1623" y="984"></point>
+<point id="1" x="1799" y="972"></point>
+</button>
+
+<button name="BUTTON_Y" action="click" type="multi" points="2">
+<point id="0" x="1853" y="60"></point>
+<point id="1" x="1778" y="144"></point>
+</button>
+
+<!-- 左摇杆按压键 -->
+<button name="BUTTON_LPRESS" action="click" type="single">
+</button>
+
+<!-- 右摇杆按压键 -->
+<button name="BUTTON_RPRESS" action="click" type="single">
+</button>
+
+<!-- 左摇杆用于移动 -->
+<joystick name="JOYSTICK_L" radius="100" description="控制移动">
+<point x="317" y="811"></point>
+</joystick>
+
+<!-- 右摇杆用于视角切换 -->
+<joystick name="JOYSTICK_R" radius="100" description="控制视角切换">
+<point x="1489" y="341"></point>
+</joystick>
+
+</game>

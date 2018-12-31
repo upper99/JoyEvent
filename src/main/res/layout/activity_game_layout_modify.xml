@@ -1,0 +1,634 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TableLayout
+        android:id="@+id/tbl_game_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="应用名称："/>
+            <EditText
+                android:id="@+id/et_appname"
+                android:layout_width="@dimen/edittext_gameattr"
+                android:layout_height="wrap_content" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="应用包名："/>
+            <EditText
+                android:id="@+id/et_packagename"
+                android:layout_width="@dimen/edittext_gameattr"
+                android:layout_height="wrap_content"
+                android:hint="可以从网上查看app或游戏对应包名"/>
+        </TableRow>
+    </TableLayout>
+
+    <!-- 键区 -->
+    <TableLayout
+        android:id="@+id/tbl_button_area"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <!-- BUTTON_B键 -->
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="按键名称："/>
+            <EditText
+                android:id="@+id/btn_b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BUTTON_B"
+                android:editable="false"/>
+            <TextView
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="坐标："/>
+            <EditText
+                android:id="@+id/et_btn_b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="（x1,y1)/(x2,y2)" />
+            <TextView
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="功能："/>
+            <EditText
+                android:id="@+id/et_btn_b_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="按键功能描述" />
+        </TableRow>
+
+        <!-- BUTTON_X键 -->
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="按键名称："/>
+            <EditText
+                android:id="@+id/btn_x"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BUTTON_X"
+                android:editable="false"/>
+            <TextView
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="坐标："/>
+            <EditText
+                android:id="@+id/et_btn_x"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="（x1,y1)/(x2,y2)" />
+            <TextView
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="功能："/>
+            <EditText
+                android:id="@+id/et_btn_x_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="按键功能描述" />
+        </TableRow>
+
+        <!-- BUTTON_Y键 -->
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="按键名称："/>
+            <EditText
+                android:id="@+id/btn_y"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BUTTON_Y"
+                android:editable="false"/>
+            <TextView
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="坐标："/>
+            <EditText
+                android:id="@+id/et_btn_y"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="（x1,y1)/(x2,y2)" />
+            <TextView
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="功能："/>
+            <EditText
+                android:id="@+id/et_btn_y_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="按键功能描述" />
+        </TableRow>
+
+        <!-- BUTTON_UP键 -->
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="按键名称："/>
+            <EditText
+                android:id="@+id/btn_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BUTTON_UP"
+                android:editable="false"/>
+            <TextView
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="坐标："/>
+            <EditText
+                android:id="@+id/et_btn_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="（x1,y1)/(x2,y2)" />
+            <TextView
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="功能："/>
+            <EditText
+                android:id="@+id/et_btn_up_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="按键功能描述" />
+        </TableRow>
+
+        <!-- BUTTON_LEFT键 -->
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="按键名称："/>
+            <EditText
+                android:id="@+id/btn_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BUTTON_LEFT"
+                android:editable="false"/>
+            <TextView
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="坐标："/>
+            <EditText
+                android:id="@+id/et_btn_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="（x1,y1)/(x2,y2)" />
+            <TextView
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="功能："/>
+            <EditText
+                android:id="@+id/et_btn_left_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="按键功能描述" />
+        </TableRow>
+
+        <!-- BUTTON_RIGHT键 -->
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="按键名称："/>
+            <EditText
+                android:id="@+id/btn_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BUTTON_RIGHT"
+                android:editable="false"/>
+            <TextView
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="坐标："/>
+            <EditText
+                android:id="@+id/et_btn_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="（x1,y1)/(x2,y2)" />
+            <TextView
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="功能："/>
+            <EditText
+                android:id="@+id/et_btn_right_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="按键功能描述" />
+        </TableRow>
+
+        <!-- BUTTON_RT键 -->
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="按键名称："/>
+            <EditText
+                android:id="@+id/btn_rt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BUTTON_RT"
+                android:editable="false"/>
+            <TextView
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="坐标："/>
+            <EditText
+                android:id="@+id/et_btn_rt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="（x1,y1)/(x2,y2)" />
+            <TextView
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="功能："/>
+            <EditText
+                android:id="@+id/et_btn_rt_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="按键功能描述" />
+        </TableRow>
+
+        <!-- BUTTON_LT键 -->
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="按键名称："/>
+            <EditText
+                android:id="@+id/btn_lt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BUTTON_LT"
+                android:editable="false"/>
+            <TextView
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="坐标："/>
+            <EditText
+                android:id="@+id/et_btn_lt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="（x1,y1)/(x2,y2)" />
+            <TextView
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="功能："/>
+            <EditText
+                android:id="@+id/et_btn_lt_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="按键功能描述" />
+        </TableRow>
+
+        <!-- BUTTON_LPRESS键 -->
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="按键名称："/>
+            <EditText
+                android:id="@+id/btn_lpress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BUTTON_LPRESS"
+                android:editable="false"/>
+            <TextView
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="坐标："/>
+            <EditText
+                android:id="@+id/et_btn_lpress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="（x1,y1)/(x2,y2)" />
+            <TextView
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="功能："/>
+            <EditText
+                android:id="@+id/et_btn_lpress_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="按键功能描述" />
+        </TableRow>
+
+        <!-- BUTTON_RPRESS键 -->
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="按键名称："/>
+            <EditText
+                android:id="@+id/btn_rpress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BUTTON_RPRESS"
+                android:editable="false"/>
+            <TextView
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="坐标："/>
+            <EditText
+                android:id="@+id/et_btn_rpress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="（x1,y1)/(x2,y2)" />
+            <TextView
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="功能："/>
+            <EditText
+                android:id="@+id/et_btn_rpress_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="按键功能描述" />
+        </TableRow>
+    </TableLayout>
+
+    <!-- 摇杆区 -->
+    <TableLayout
+        android:id="@+id/tbl_joystick_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!-- 左摇杆 -->
+        <TableRow>
+            <TextView android:text="摇杆名称："
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:id="@+id/joystick_l"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="JOYSTICK_L"
+                android:editable="false"/>
+            <TextView android:text="原点："
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content">
+            </TextView>
+            <EditText
+                android:id="@+id/et_joystickL_original"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="(x0,y0)"/>
+
+            <TextView android:text="半径："
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content">
+            </TextView>
+            <EditText
+                android:id="@+id/et_joystickL_radius"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100"/>
+            <TextView android:text="类型："
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content">
+            </TextView>
+            <EditText
+                android:id="@+id/et_joystickL_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="standard"/>
+            <TextView
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="功能："/>
+            <EditText
+                android:id="@+id/et_joystickL_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="摇杆功能描述" />
+        </TableRow>
+
+        <!-- 右摇杆 -->
+        <TableRow>
+            <TextView android:text="摇杆名称："
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:id="@+id/joystick_r"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="JOYSTICK_R"
+                android:editable="false" />
+            <TextView android:text="原点："
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content">
+            </TextView>
+            <EditText
+                android:id="@+id/et_joystickR_original"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="(x0,y0)"/>
+
+            <TextView android:text="半径："
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content">
+            </TextView>
+            <EditText
+                android:id="@+id/et_joystickR_radius"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100"/>
+            <TextView android:text="类型："
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content">
+            </TextView>
+            <EditText
+                android:id="@+id/et_joystickR_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="standard"/>
+            <TextView
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="功能："/>
+            <EditText
+                android:id="@+id/et_joystickR_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="摇杆功能描述" />
+        </TableRow>
+    </TableLayout>
+
+    <!-- 组合键 -->
+    <TableLayout
+        android:id="@+id/tbl_combo_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!--  组合键1 -->
+        <TableRow>
+            <TextView
+                android:text="组合键："
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+            <EditText
+                android:id="@+id/combo1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="BUTTON_B+BUTTON_Y" />
+            <TextView
+                android:text="坐标："
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+            <EditText
+                android:id="@+id/et_coordinate_combo1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="功能："/>
+            <EditText
+                android:id="@+id/et_description_combo1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="组合键功能描述" />
+        </TableRow>
+
+        <!--  组合键2 -->
+        <TableRow>
+            <TextView
+                android:text="组合键："
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+            <EditText
+                android:id="@+id/combo2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="BUTTON_B+BUTTON_Y"/>
+            <TextView
+                android:text="坐标："
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+            <EditText
+                android:id="@+id/et_coordinate_combo2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="功能："/>
+            <EditText
+                android:id="@+id/et_description_combo2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="组合键功能描述" />
+        </TableRow>
+
+        <!--  组合键3 -->
+        <TableRow>
+            <TextView
+                android:text="组合键："
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+            <EditText
+                android:id="@+id/combo3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="BUTTON_B+BUTTON_Y"/>
+            <TextView
+                android:text="坐标："
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+            <EditText
+                android:id="@+id/et_coordinate_combo3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginLeft="@dimen/view_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="功能："/>
+            <EditText
+                android:id="@+id/et_description_combo3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="组合键功能描述" />
+        </TableRow>
+    </TableLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left">
+    <Button
+        android:id="@+id/btn_modify_xml"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="修改"/>
+    <Button
+        android:id="@+id/btn_reset_xml"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="重置"/>
+    <Button
+        android:id="@+id/btn_cancel_xml"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="取消"/>
+    </LinearLayout>
+
+</LinearLayout>
+</ScrollView>
