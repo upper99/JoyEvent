@@ -18,6 +18,8 @@ import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.hardware.input.InputManager;
+import android.hardware.usb.UsbDevice;
+import android.hardware.usb.UsbManager;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
@@ -43,6 +45,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -97,6 +101,8 @@ public class GameSurfaceView extends SurfaceView implements Callback,Runnable {
     List<GamePadEvent> usedList = new ArrayList<GamePadEvent>();
     Instrumentation mInst = new Instrumentation();
     ReentrantLock lock = new ReentrantLock();
+    static int usbDeviceIdOfViewCtrl = -1;//default
+    static boolean bMaxDeviceIdAsViewCtrl = true;
 
     public GameSurfaceView(Context context,String packageName,boolean bTestMode) {
         super(context);
@@ -120,6 +126,40 @@ public class GameSurfaceView extends SurfaceView implements Callback,Runnable {
 
         mHolder = getHolder(); // 获得SurfaceHolder对象
         mHolder.addCallback(this); // 为SurfaceView添加状态监听
+    }
+
+    public int getViewCtrlDeviceId(){
+        InputManager inputmanager = (InputManager)getContext().getSystemService(Context.INPUT_SERVICE);
+        int[] inputDeviceIds = inputmanager.getInputDeviceIds();
+
+        Log.i(TAG,"inputdeviceIds length:"+inputDeviceIds.length);
+        int deviceCnt = 0;
+        for(int i=0;i<inputDeviceIds.length;i++){
+            InputDevice inputDevice = inputmanager.getInputDevice(inputDeviceIds[i]);
+            int currDeviceId = inputDevice.getId();
+            Log.i(TAG,String.format("detect vid:0x%x,pid:0x%x,device id:%d,record:%d",inputDevice.getVendorId(),inputDevice.getProductId(),inputDevice.getId(),usbDeviceIdOfViewCtrl));
+            if(inputDevice.getVendorId() == 0x11b9 && inputDevice.getProductId() == 0x0b00){
+                deviceCnt++;
+                if(usbDeviceIdOfViewCtrl == -1) {
+                    usbDeviceIdOfViewCtrl = currDeviceId;
+                }else if(bMaxDeviceIdAsViewCtrl){//第二个设备作为视角设备（设备号大）
+                    if(currDeviceId > usbDeviceIdOfViewCtrl){
+                        usbDeviceIdOfViewCtrl = currDeviceId;
+                    }
+                }else if(!bMaxDeviceIdAsViewCtrl){//第一个设备作为视角设备（设备号小）
+                    if(currDeviceId < usbDeviceIdOfViewCtrl){
+                        usbDeviceIdOfViewCtrl = currDeviceId;
+                    }
+                }
+            }
+        }
+
+        if(deviceCnt > 1){
+            Log.i(TAG,"detect view ctrl device id:"+usbDeviceIdOfViewCtrl);
+            return usbDeviceIdOfViewCtrl;
+        }else{
+            return -1;
+        }
     }
 
     /**
@@ -155,7 +195,7 @@ public class GameSurfaceView extends SurfaceView implements Callback,Runnable {
             Log.e(TAG,"游戏对应xml布局文件不存在!!!");
         }
 
-        //setZOrderOnTop(true);
+        setZOrderOnTop(true);
         setZOrderMediaOverlay(true);
         getHolder().setFormat(PixelFormat.TRANSLUCENT);
 
@@ -188,10 +228,72 @@ public class GameSurfaceView extends SurfaceView implements Callback,Runnable {
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event){
-        Log.i(TAG,"on touch event..."+usedList.size());
+    public boolean dispatchGenericMotionEvent(MotionEvent event){
+        Log.i(TAG,"SurfaceView dispatchGenericMotionEvent...\n");
 
-        return false;
+        double x,y,z,rz;
+        int ix,iy,iz,irz;
+
+        //左右摇杆
+        if(KeycodeMap.getMode() == KeycodeMap.MODE_BETOP) {
+            x = event.getAxisValue(MotionEvent.AXIS_X);
+            y = event.getAxisValue(MotionEvent.AXIS_Y);
+            z = event.getAxisValue(MotionEvent.AXIS_Z);
+            rz = event.getAxisValue(MotionEvent.AXIS_RZ);
+        }else {
+            x = event.getAxisValue(MotionEvent.AXIS_Z);
+            y = event.getAxisValue(MotionEvent.AXIS_RZ);
+            z = event.getAxisValue(MotionEvent.AXIS_X);
+            rz = event.getAxisValue(MotionEvent.AXIS_Y);
+        }
+
+        Log.i("AXIS",String.format("x:%f,y:%f,z:%f,rz:%f",event.getAxisValue(MotionEvent.AXIS_X),event.getAxisValue(MotionEvent.AXIS_Y),event.getAxisValue(MotionEvent.AXIS_Z),event.getAxisValue(MotionEvent.AXIS_RZ)));
+
+        if(initFlag){
+            initMotionEventBuff();
+            initFlag = false;
+        }
+
+        //输入摇杆坐标处理
+        if(Math.abs(x) < Dpad.validJoystickThresholdX && Math.abs(y) < Dpad.validJoystickThresholdY){
+            x = 0;y = 0;
+        }
+
+        if(Math.abs(z) < Dpad.validJoystickThresholdX && Math.abs(rz) < Dpad.validJoystickThresholdY) {
+            z = 0;
+            rz = 0;
+        }
+
+        ix = (int)(radius_L*x);iy=(int)(radius_L*y);
+        iz = (int)(radius_R*z);irz=(int)(radius_R*rz);
+
+        //计算摇杆实时坐标
+        circleX_JoystickL = originalX_L + ix;
+        circleY_JoystickL = originalY_L + iy;
+        circleX_JoystickR = originalX_R + iz;
+        circleY_JoystickR = originalY_R + irz;
+
+        /*
+        //if(type_L.equals(GameLayout.TYPE_JOYSTICK_STANDARD)) {
+            if (isJoystickLStill()) {
+                Log.i("Joystick", "detect JoystickL still");
+                sync_up(KEYCODE_JOYSTICK_L, circleX_JoystickL, circleY_JoystickL);
+            } else {
+                sync_down(KEYCODE_JOYSTICK_L, circleX_JoystickL, circleY_JoystickL);
+            }
+        //}
+        */
+
+        //if(type_R.equals(GameLayout.TYPE_JOYSTICK_STANDARD)) {
+            if (isJoystickRStill()) {
+                Log.i("Joystick", "detect JoystickR still");
+                sync_up(KEYCODE_JOYSTICK_R, circleX_JoystickR, circleY_JoystickR);
+            } else {
+                sync_down(KEYCODE_JOYSTICK_R, circleX_JoystickR, circleY_JoystickR);
+            }
+        //}
+
+        return false;//(x,y分量控制视角，子view不处理，交给父view处理;而z,rz分量确保父view不处理)
     }
 
     public static final int MOTITONEVENT_BUFFSIZE = 10;
@@ -214,13 +316,15 @@ public class GameSurfaceView extends SurfaceView implements Callback,Runnable {
         }
     }
 
+    /*
     @Override
     public boolean onGenericMotionEvent(MotionEvent event){
         double x,y,z,rz;
         int ix,iy,iz,irz;
-        String tag = "GenericMotionEvent";
 
-        Log.i(TAG,String.format("source:0x%x,device id:%d,descriptor:%s",event.getSource(),event.getDeviceId(),event.getDevice().getDescriptor()));
+        Log.i(TAG,"surfaceview onGenericMotionEvent...\n");
+
+        Log.i(TAG,"processing...");
 
         //左右摇杆
         if(KeycodeMap.getMode() == KeycodeMap.MODE_BETOP) {
@@ -265,24 +369,6 @@ public class GameSurfaceView extends SurfaceView implements Callback,Runnable {
         circleX_JoystickR = originalX_R + iz;
         circleY_JoystickR = originalY_R + irz;
 
-        /*
-        if (isJoystickLStill()) {
-            Log.i("Joystick", "detect JoystickL still");
-            sync_up(KEYCODE_JOYSTICK_L, circleX_JoystickL, circleY_JoystickL);
-        } else {
-            Log.i("Joystick", "detect JoystickL down OR moving");
-            sync_down(KEYCODE_JOYSTICK_L, circleX_JoystickL, circleY_JoystickL);
-        }
-
-        if (isJoystickRStill()) {
-            Log.i("Joystick", "detect JoystickR still");
-            sync_up(KEYCODE_JOYSTICK_R, circleX_JoystickR, circleY_JoystickR);
-        } else {
-            Log.i("Joystick", "detect JoystickR down OR moving");
-            sync_down(KEYCODE_JOYSTICK_R, circleX_JoystickR, circleY_JoystickR);
-        }
-        */
-
         if(type_L.equals(GameLayout.TYPE_JOYSTICK_STANDARD)) {
             if (isJoystickLStill()) {
                 Log.i("Joystick", "detect JoystickL still");
@@ -298,6 +384,7 @@ public class GameSurfaceView extends SurfaceView implements Callback,Runnable {
                 sync_down(KEYCODE_JOYSTICK_L, circleX_JoystickL, circleY_JoystickL);
             }
         }
+
 
         if(type_R.equals(GameLayout.TYPE_JOYSTICK_STANDARD)) {
             if (isJoystickRStill()) {
@@ -317,8 +404,9 @@ public class GameSurfaceView extends SurfaceView implements Callback,Runnable {
 
         loc = (loc+1)%MOTITONEVENT_BUFFSIZE;
 
-        return true;
+        return false;
     }
+    */
 
     public boolean isJoystickLBack(){
         double curr_x = buffer_x[loc];
@@ -326,14 +414,20 @@ public class GameSurfaceView extends SurfaceView implements Callback,Runnable {
         double prev_x = buffer_x[loc_prev];
         double prev_y = buffer_y[loc_prev];
 
+        //测略1：半径减少法
         double curr_powsum = (Math.pow(curr_x,2)+Math.pow(curr_y,2));
         double prev_powsum = (Math.pow(prev_x,2)+Math.pow(prev_y,2));
         double thre_powsum = (Math.pow(Dpad.validJoystickThresholdX,2)+Math.pow(Dpad.validJoystickThresholdY,2));
+        double curr_ratio = curr_y/curr_x+0.000000001;
+        double prev_ratio = prev_y/prev_x+0.000000001;
+        //Log.i("turnback",String.format("prev_ratio:%s,curr_ratio:%s",prev_ratio,curr_ratio));
         if(curr_powsum > prev_powsum && curr_powsum > thre_powsum){
             return false;
         }else{
             return true;
         }
+
+        //测略2：检测向心方向
     }
 
     public boolean isJoystickRBack(){
